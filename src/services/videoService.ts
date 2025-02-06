@@ -16,8 +16,13 @@ export const convertVideo = (
 
       ffmpeg(inputPath)
         .output(outputPath)
-        .on("end", () => resolve(outputFileName))
         .on("error", (err) => reject(err))
+        .on("end", () =>
+          fs.unlink(inputPath, (err) => {
+            if (err) return reject(err);
+            resolve(outputFileName);
+          })
+        )
         .run();
     } catch (error) {
       reject(error);
