@@ -7,7 +7,7 @@ import helmet from "helmet";
 import cors from "cors";
 
 const app = express();
-app.use(express.urlencoded({ extended: true, limit: "1mb" }));
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cors());
 app.use(
@@ -17,13 +17,6 @@ app.use(
     legacyHeaders: false,
   })
 );
-// app.use(
-//   fileUpload({
-//     limits: { fileSize: 2 * 1024 * 1024 * 1024 },
-//     abortOnLimit: true,
-//     responseOnLimit: "File size exceeds the limit of 2 GB.",
-//   })
-// );
 
 app.post("/upload", uploadVideo);
 app.get("/download/:filename", downloadVideo);
